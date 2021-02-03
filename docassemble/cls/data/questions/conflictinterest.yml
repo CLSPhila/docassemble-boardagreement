@@ -50,7 +50,7 @@ code: |
   signature_unpopulated = True
 ---
 code: |
-  send_email(to='jpyle@philalegal.org', subject='Conflict of Interest Annual Statement for ' + str(user), body='Attached is the Annual Statement signed by ' + str(user), attachments=annual_statement_form.pdf)
+  send_email(to='rcourtney@clsphila.org', subject='Conflict of Interest Annual Statement for ' + str(user), body='Attached is the Annual Statement signed by ' + str(user), attachments=annual_statement_form.pdf)
   prevent_going_back()
   email_sent = True
 ---

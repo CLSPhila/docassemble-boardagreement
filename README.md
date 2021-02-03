@@ -1,8 +1,8 @@
 # docassemble.cls
 
-A docassemble extension.
+A package for miscellaneous guided interviews for Community Legal Services.
 
 ## Author
 
-Jonathan Pyle, admin@admin.com
+Jonathan Pyle, jpyle@philalegal.org
 
