@@ -1,0 +1,105 @@
+metadata:
+  title: CLS Conflict of Interest Policy
+  short: CLS Conflict of Interest
+---
+objects:
+  - user: Individual
+  - policy: DAStaticFile.using(filename='CLS-Conflict-of-Interest-Policy.pdf')
+  - statement: DAStaticFile.using(filename='CLS-Annual-Statement.pdf')
+---
+images:
+  cls_logo: cls_logo.png
+---
+attachment:
+  name: Conflict of Interest Annual Statement
+  variable name: annual_statement_form
+  filename: |
+    Conflict_of_Interest_Annual_statement_${ space_to_underscore(user) }
+  docx template file: CLS-Annual-Statement.docx
+  valid formats:
+    - pdf
+---
+attachment:
+  variable name: draft_annual_statement_form
+  filename: |
+    Conflict_of_Interest_Annual_Statement_${ space_to_underscore(user) }
+  docx template file: CLS-Annual-Statement.docx
+  valid formats:
+    - pdf
+---
+question: Sign your name
+signature: user.signature
+---
+mandatory: True
+code: |
+  intro
+  user.name.first
+  signature_prepopulated
+  agrees_to_sign
+  signature_unpopulated
+  email_sent
+  final_screen
+---
+only sets: signature_prepopulated
+code: |
+  user.signature = ""
+  signature_prepopulated = True
+---
+code: |
+  user.delattr('signature')
+  signature_unpopulated = True
+---
+code: |
+  send_email(to='jpyle@philalegal.org', subject='Conflict of Interest Annual Statement for ' + str(user), body='Attached is the Annual Statement signed by ' + str(user), attachments=annual_statement_form.pdf)
+  prevent_going_back()
+  email_sent = True
+---
+question: |
+  If you agree to sign the [Annual Statement]{:target="_blank"}, press Continue.
+
+  [Annual Statement]: ${ draft_annual_statement_form.pdf.url_for() }
+subquestion: |
+  On the next screen, you will see a box in which you can sign your
+  name using your mouse, track pad, or touch screen. If you make a
+  mistake, you can press “Clear” and try again. For best results, try
+  signing your name slowly.
+continue button field: agrees_to_sign
+---
+decoration: cls_logo
+question: |
+  Community Legal Services Conflict of Interest Policy
+  Annual Statement Form
+subquestion: |
+  Community Legal Services (CLS) has a [Conflict of Interest
+  Policy]{:target="_blank"} that requires CLS board members
+  to sign an [Annual Statement] attesting that they have read
+  and have agreed to comply with the terms of the [Conflict of
+  Interest Policy].
+
+  This web app will allow you to sign the [Annual
+  Statement]{:target="_blank"} and submit it to CLS.
+
+  Please make sure you have read the [Conflict of Interest Policy] and
+  [Annual Statement] before pressing Continue.
+
+  [Conflict of Interest Policy]: ${ policy.url_for() }
+  [Annual Statement]: ${ statement.url_for() }
+continue button field: intro
+---
+question: |
+  What is your name?
+fields:
+  - First name: user.name.first
+  - Last name: user.name.last
+---
+prevent going back: True
+event: final_screen
+question: |
+  Thank you for signing the Annual Statement.
+subquestion: |
+  Your [:file-pdf: Annual Statement](${ annual_statement_form.pdf.url_for(attachment=True) }) has been submitted to CLS.
+
+  If you would like a copy for your records, you can e-mail it to
+  yourself from here.
+manual attachment list: True
+attachment code: annual_statement_form
