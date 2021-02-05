@@ -42,10 +42,10 @@ def find_package_data(where='.', package='', exclude=standard_exclude, exclude_d
                 out.setdefault(package, []).append(prefix+name)
     return out
 
-setup(name='docassemble.cls',
+setup(name='docassemble.boardagreement',
       version='0.0.1',
       description=('A docassemble extension.'),
-      long_description='# docassemble.cls\n\nA docassemble extension.\n\n## Author\n\nJonathan Pyle, admin@admin.com\n\n',
+      long_description='# docassemble.boardagreement\n\nA docassemble extension.\n\n## Author\n\nJonathan Pyle, admin@admin.com\n\n',
       long_description_content_type='text/markdown',
       author='Jonathan Pyle',
       author_email='jpyle@philalegal.org',
@@ -55,6 +55,6 @@ setup(name='docassemble.cls',
       namespace_packages=['docassemble'],
       install_requires=[],
       zip_safe=False,
-      package_data=find_package_data(where='docassemble/cls/', package='docassemble.cls'),
+      package_data=find_package_data(where='docassemble/boardagreement/', package='docassemble.boardagreement'),
      )
 
